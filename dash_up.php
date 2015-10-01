@@ -14,7 +14,7 @@
 				$path='C:\xampp\htdocs\dashboard\images\\'.$rename;
 				if(move_uploaded_file($tmp, $path))
 				{
-					$query="UPDATE dishes set uploaded=1,dimage='$rename' where did=$id";
+					$query="UPDATE dishes set uploaded=1,dimage='$type' where did=$id";
 					$res=mysqli_query($conn,$query);
 					if($res)
 					{
