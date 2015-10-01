@@ -1,7 +1,11 @@
 <?php 
 
+	$conn=mysqli_connect('localhost','root','','dashboard') or die('fatal!!');
+
 	function read_csv()
 	{
+		global $conn;
+		$temp=array();
 		$handle=fopen('sample.csv', 'r');
 			if(!$handle)
 			{
@@ -17,24 +21,42 @@
 			$rest=$temp[2];
 			$query1="INSERT into dishes(dname,resturant) values('$dname','$rest')";
 			$status=mysqli_query($conn,$query1);
-			if($status)
+			if(!$status)
 			{
-				echo "row inserted";
+				echo "problem";
+				//return false;
 			}
 		}
+		return True;
 
 	}
-
-	//call this to read file...
-	//read_csv();
-	$temp=array();
+		
 	$flag=0;
-	$conn=mysqli_connect('localhost','root','','dashboard') or die('fatal!!');
-
 	
+
 	$query2="SELECT * from dishes where uploaded=0";
 
 	$result=mysqli_query($conn,$query2);
+	$fetched=mysqli_num_rows($result);
+
+	if($fetched==0) // means table is empty or all photos are uploaded...
+	{
+		$check="SELECT * from dishes";
+		$check_row=mysqli_query($conn,$check);
+		$fetched=mysqli_num_rows($check_row);
+		if($fetched==0)
+		{
+			//table is empty
+			read_csv();
+			$result=mysqli_query($conn,$query2);
+		}
+		//all photos are uploaded...
+		else
+		{
+			echo "all photos done...";
+		}
+		
+	}
 	
 
  ?>
@@ -57,8 +79,6 @@
 		 		</tr>
 		 	<?php 
 		 	
-		 		if($flag==0)//no use of this...
-		 			{	
 		 			while($rs=mysqli_fetch_array($result))
 		 			{
 		 	
@@ -74,8 +94,7 @@
 		 		</form>
 		 		<?php 
 		 			}
-		 			$flag=1;
-		 		    }
+		 		
 		 		 ?>
 		 	</table>
 		 	
