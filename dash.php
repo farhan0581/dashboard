@@ -1,10 +1,11 @@
-<?php 
-
-	$conn=mysqli_connect('localhost','root','','dashboard') or die('fatal!!');
+<?php
+	
+	//php substr(string,start,length); 
+	
+	require_once('database.php');
 
 	function read_csv()
     {
-        global $conn;
         $query="INSERT into dishes(dname,resturant) values";
         $temp=array();
         $handle=fopen('sample.csv', 'r');
@@ -18,14 +19,14 @@
         while(!feof($handle))
         {
             $temp=fgetcsv($handle);
-            $dname=mysqli_real_escape_string($conn,$temp[1]);
-            $rest=mysqli_real_escape_string($conn,$temp[2]);
+            $dname=$db->mysqlready($temp[1]);
+            $rest=$db->mysqlready($temp[2]);
             $query.="('$dname','$rest'),";
 
          }
          $fquery=substr($query, 0,-1);
          $fquery.=";";
-         $status=mysqli_query($conn,$fquery);
+         $status=$db->query($fquery);
 
             if(!$status)
             {
@@ -42,19 +43,19 @@
 
 	$query2="SELECT * from dishes where uploaded=0";
 
-	$result=mysqli_query($conn,$query2);
+	$result=$db->query($query2);
 	$fetched=mysqli_num_rows($result);
 
 	if($fetched==0) // means table is empty or all photos are uploaded...
 	{
 		$check="SELECT * from dishes";
-		$check_row=mysqli_query($conn,$check);
+		$check_row=$db->query($check);
 		$fetched=mysqli_num_rows($check_row);
 		if($fetched==0)
 		{
 			//table is empty
 			read_csv();
-			$result=mysqli_query($conn,$query2);
+			$result=$db->query($query2);
 		}
 		//all photos are uploaded...
 		else
@@ -89,11 +90,11 @@
 		 			{
 		 	
 		 		 ?>
-		 		 <form action="dash_up.php?id=<?php echo $rs['did']; ?>" method="post" enctype="multipart/form-data">
+		 		 <form action="dash_up_multipe.php" method="post" enctype="multipart/form-data">
 		 		<tr>
 		 			<td><?php echo $rs['dname']; ?></td>
 		 			<td><?php echo $rs['resturant']; ?></td>
-		 			<td><input  name="upload" type="file" value="upload"></td>
+		 			<td><input  name="upload[]" type="file" value="upload" multiple></td>
 		 			<td><input class="btn btn-primary" type="submit" value="submit" name="submit"></td>
 		 			<input type="hidden" value="<?php echo $rs['did']; ?>" name="id">
 		 		</tr>
