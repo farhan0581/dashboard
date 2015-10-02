@@ -3,33 +3,39 @@
 	$conn=mysqli_connect('localhost','root','','dashboard') or die('fatal!!');
 
 	function read_csv()
-	{
-		global $conn;
-		$temp=array();
-		$handle=fopen('sample.csv', 'r');
-			if(!$handle)
-			{
-				echo "error";
-			}
+    {
+        global $conn;
+        $query="INSERT into dishes(dname,resturant) values";
+        $temp=array();
+        $handle=fopen('sample.csv', 'r');
+            if(!$handle)
+            {
+                echo "error";
+            }
 
-		$temp=fgetcsv($handle);//skip the heading...
+        $temp=fgetcsv($handle);//skip the heading...
 
-		while(!feof($handle))
-		{
-			$temp=fgetcsv($handle);
-			$dname=$temp[1];
-			$rest=$temp[2];
-			$query1="INSERT into dishes(dname,resturant) values('$dname','$rest')";
-			$status=mysqli_query($conn,$query1);
-			if(!$status)
-			{
-				echo "problem";
-				//return false;
-			}
-		}
-		return True;
+        while(!feof($handle))
+        {
+            $temp=fgetcsv($handle);
+            $dname=mysqli_real_escape_string($conn,$temp[1]);
+            $rest=mysqli_real_escape_string($conn,$temp[2]);
+            $query.="('$dname','$rest'),";
 
-	}
+         }
+         $fquery=substr($query, 0,-1);
+         $fquery.=";";
+         $status=mysqli_query($conn,$fquery);
+
+            if(!$status)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+    }
 		
 	$flag=0;
 	
