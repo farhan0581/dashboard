@@ -7,5 +7,3 @@ PHP 5.x, MySql,Xampp(apache).<br>
    git clone https://github.com/farhan0581/dashboard.git<br>
 2. Export the database provided in repo in your MySql.<br>
 3. Run the dash.php script in you browser by providing the appropriate path.<br>
-<b>TO do:</b><br>
-2. User can upload only one image per dish as of now.<br>
