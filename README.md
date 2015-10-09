@@ -6,9 +6,14 @@ PHP 5.x, MySql,Xampp(apache).
 1. Clone the repository in your htdocs folder in C:\xampp\htdocs for windows or<br>
    /opt/lampp/htdocs in Linux <br>
    git clone https://github.com/farhan0581/dashboard.git<br>
+<<<<<<< HEAD
 2. Import the database provided in repo in your MySql.<br>
 3. Change the variables accordingly in the file variables.php.
 4. Run the dash.php script in you browser by providing the appropriate path.<br>
 5. Upload the picture(s) from the page.
 6. Report the errors if any.
 
+=======
+2. Export the database provided in repo in your MySql.<br>
+3. Run the dash.php script in you browser by providing the appropriate path.<br>
+>>>>>>> 3ee4cc5abce3970484398145f71ba275d1717737
