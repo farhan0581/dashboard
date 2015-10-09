@@ -1,9 +1,6 @@
 <?php 
 	//constants
-	define("dbhost", "localhost");
-	define("dbuser", "root");
-	define("database","dashboard");
-	define("pass", "");
+	require_once('variables.php');
 
 	class database
 	{

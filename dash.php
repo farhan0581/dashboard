@@ -75,7 +75,8 @@
 </head>
 <body>
 		<div class="container">
-		 	<h3>Dashboard</h3>
+	
+		 	<h2>Dashboard</h2>
 		 	
 		 	<table class="table table-hover">
 		 		<tr>
@@ -104,8 +105,7 @@
 		 		
 		 		 ?>
 		 	</table>
-		 	
-
+		 		
 		</div>
 </body>
 </html>

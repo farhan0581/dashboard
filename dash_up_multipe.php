@@ -15,7 +15,8 @@
 				{
 					$name=$_FILES['upload']['name'][$i];
 					$tmp=$_FILES['upload']['tmp_name'][$i];
-					$path='C:\xampp\htdocs\dashboard\images\\'.$name;
+					$path=path_to_save_image.$name;
+					echo $path;
 					if(move_uploaded_file($tmp, $path))
 					{
 						$up++;
