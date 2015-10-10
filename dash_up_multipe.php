@@ -15,8 +15,14 @@
 				{
 					$name=$_FILES['upload']['name'][$i];
 					$tmp=$_FILES['upload']['tmp_name'][$i];
-					$path=path_to_save_image.$name;
+					$dir=path_to_save_image.$id;
+					if(!is_dir($dir))
+					{
+						mkdir($dir,0777,true);
+					}
+					$path=$dir."/".$name;
 					echo $path;
+
 					if(move_uploaded_file($tmp, $path))
 					{
 						$up++;

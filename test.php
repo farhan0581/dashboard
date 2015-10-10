@@ -1,16 +1,15 @@
 <?php 
-function check($str)
-{
-		
-for ($i=0; $i<strlen($str); $i++){
-   if ($str[$i]=="`"){
-       $str[$i]='';
-   }
-
-}
- return $str;
-}
-$far="CAFE`";	
-$far=check($far);
-echo $far;
+require_once('database.php');
+$id=300;
+$path=path_to_save_image;
+	$dir=$path.$id;
+	if(is_dir($dir))
+		{
+				echo "yes";		//
+		}
+		else
+		{
+			mkdir($dir,0777,true);
+			echo "string";
+		}
  ?>
