@@ -1,0 +1,13 @@
+.ui-helper-hidden-accessible
+ { display:none; }
+.ui-widget-content
+{
+	background-color: white;
+	width: 392px !important;
+	left: 50px !important;
+	list-style-type: none;
+}
+.ui-state-focus
+{
+	background-color: lightgray;
+}

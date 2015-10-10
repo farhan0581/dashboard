@@ -4,7 +4,18 @@
 	
 	require_once('database.php');
 
-	function read_csv()
+	function check_appro($str)
+	{
+		for ($i=0; $i<strlen($str); $i++){
+   			if ($str[$i]=="`"){
+       			$str[$i]='';
+   						}
+
+			}
+				return $str;
+	}
+
+	function read_csv($db)
     {
         $query="INSERT into dishes(dname,resturant) values";
         $temp=array();
@@ -20,7 +31,9 @@
         {
             $temp=fgetcsv($handle);
             $dname=$db->mysqlready($temp[1]);
+            $dname=check_appro($dname);
             $rest=$db->mysqlready($temp[2]);
+            $rest=check_appro($rest);
             $query.="('$dname','$rest'),";
 
          }
@@ -37,6 +50,7 @@
                 return true;
             }
     }
+
 		
 	$flag=0;
 	
@@ -54,7 +68,7 @@
 		if($fetched==0)
 		{
 			//table is empty
-			read_csv();
+			read_csv($db);
 			$result=$db->query($query2);
 		}
 		//all photos are uploaded...
@@ -77,11 +91,12 @@
 		<div class="container">
 	
 		 	<h2>Dashboard</h2>
-		 	
+		 	<a href="upload_manual.php">Upload Images Manually...</a>
 		 	<table class="table table-hover">
 		 		<tr>
 		 			<th>Dish</th>
 		 			<th>Resturant</th>
+		 			<th>Tags</th>
 		 			<th>Select Image</th>
 		 			<th>Submit</th>
 		 		</tr>
@@ -95,6 +110,7 @@
 		 		<tr>
 		 			<td><?php echo $rs['dname']; ?></td>
 		 			<td><?php echo $rs['resturant']; ?></td>
+		 			<td><input class="form-control" placeholder="tags" name="tags"></td>
 		 			<td><input  name="upload[]" type="file" value="upload" multiple></td>
 		 			<td><input class="btn btn-primary" type="submit" value="submit" name="submit"></td>
 		 			<input type="hidden" value="<?php echo $rs['did']; ?>" name="id">

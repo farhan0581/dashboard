@@ -25,9 +25,10 @@
 				}
 				$qname=substr($qname,0,-1);
 				$qname=$db->mysqlready($qname);
+				$tags=$db->mysqlready($_POST['tags']);
 				if($up==$count)
 				{
-					$query="UPDATE dishes set uploaded=$count,dimage='$qname' where did=$id";
+					$query="UPDATE dishes set uploaded=$count,dimage='$qname',tags='$tags' where did=$id";
 					$res=$db->query($query);
 					if($res)
 					{
