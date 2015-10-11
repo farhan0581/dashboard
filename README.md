@@ -10,4 +10,4 @@ PHP 5.x, MySql,Xampp(apache).
 3. Change the variables accordingly in the file variables.php.<br>
 4. Run the dash.php script in you browser by providing the appropriate path.<br>
 5. Upload the picture(s) from the page.<br>
-6. Report the errors if any.
+6. Report the errors if any farhan0581@gmail.com.
