@@ -16,7 +16,7 @@
 			{
 
 				$temp=mysqli_fetch_array($res_check);
-				$id=$temp['did'];
+				$id=$_POST['did'];
 				//check...and upload
 				for($i=0;$i<$count;$i++)
 				{
@@ -47,11 +47,50 @@
 			//new record....
 			else
 			{
-				$query2="INSERT into dishes(dname,resturant,dimage,tags,uploaded) 
-				VALUES('$dish','$rest','$qname','$tags',$count)";
+				$qname="";
+				$count=count($_FILES['upload']['name']);
+				$id=$db->mysqlready($_POST['did']);
+				for($i=0;$i<$count;$i++)
+				{
+					$name=$_FILES['upload']['name'][$i];
+					$qname.=$name.",";
+				}
+				$qname=substr($qname,0,-1);
+				$qname=$db->mysqlready($qname);
+
+				$query2="INSERT into dishes(did,dname,resturant,dimage,tags,uploaded) 
+				VALUES($id,'$dish','$rest','$qname','$tags',$count)";
+				
 				if($db->query($query2))
 				{
-					header("Location:upload_manual.php");
+					$cdir=path_to_save_image.$id;
+					if(!is_dir($cdir))
+					{
+						mkdir($cdir,0777,True);
+					}
+
+					//pasted here
+						$up=0;
+						for($i=0;$i<$count;$i++)
+						{
+							$tmp=$_FILES['upload']['tmp_name'][$i];
+							$name=$_FILES['upload']['name'][$i];
+							$path=$cdir."/".$name;
+							if(move_uploaded_file($tmp, $path))
+							{
+								$up++;
+							}
+						}
+						if($up==$count)
+						{
+							header("Location:upload_manual.php");
+						}
+						else
+						{
+							echo "photos not uploaded";
+						}
+				
+					
 				}
 				else
 				{

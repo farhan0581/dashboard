@@ -4,6 +4,7 @@
 	
 	require_once('database.php');
 
+	//this function is to skip any character you want from the csv enteries...
 	function check_appro($str)
 	{
 		for ($i=0; $i<strlen($str); $i++){
@@ -14,10 +15,10 @@
 			}
 				return $str;
 	}
-
+	//to read the csv file and insert into the database....
 	function read_csv($db)
     {
-        $query="INSERT into dishes(dname,resturant) values";
+        $query="INSERT into dishes(did,dname,resturant) values";
         $temp=array();
         $handle=fopen('sample.csv', 'r');
             if(!$handle)
@@ -30,11 +31,12 @@
         while(!feof($handle))
         {
             $temp=fgetcsv($handle);
+            $did=$db->mysqlready($temp[0]);
             $dname=$db->mysqlready($temp[1]);
             $dname=check_appro($dname);
             $rest=$db->mysqlready($temp[2]);
             $rest=check_appro($rest);
-            $query.="('$dname','$rest'),";
+            $query.="($did,'$dname','$rest'),";
 
          }
          $fquery=substr($query, 0,-1);

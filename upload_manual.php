@@ -26,6 +26,7 @@
  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
 <script src="js/jquery.js"></script>
 <script src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
 <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <script type="text/javascript">
 $(function() {
@@ -61,11 +62,13 @@ $(function() {
  		<br>
  		<div class="col-lg-8">
  		<form action="insert_upload_manual.php" method="post" enctype="multipart/form-data">
+ 			<input class="form-control" placeholder="Dish Id.." name="did" id="did" onchange="">
+ 			<br>
  			<input class="form-control" placeholder="Dish Name" id="dish" name="dish_name">
  			<br>
  			<input class="form-control" placeholder="Resturant" id="resturant" name="rest_name">
  			<br>
- 			<input class="form-control" placeholder="Tags..." name="tags">
+ 			<input class="form-control" placeholder="Tags..." name="tags" id="tags">
  			<br>
  			<input type="file" value="upload" name="upload[]" multiple>
  			<br>
